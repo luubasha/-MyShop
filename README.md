@@ -1,1 +1,1 @@
-# foodShop
+# myShop

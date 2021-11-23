@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "11d192a5-09b2-41ff-ae5f-f2dd0e6f214a": {
+      "ProjectGuid": "11d192a5-09b2-41ff-ae5f-f2dd0e6f214a",
+      "DisplayName": "foodShop",
+      "ColorIndex": 0
+    },
+    "2fcda06d-1b61-441b-acaa-6e5832077ca6": {
+      "ProjectGuid": "2fcda06d-1b61-441b-acaa-6e5832077ca6",
+      "DisplayName": "DAL",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Прочие файлы",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 2
+}

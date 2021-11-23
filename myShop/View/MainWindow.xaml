@@ -1,0 +1,57 @@
+﻿<Window x:Class="myShop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:myShop"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Login" Height="600" Width="400" 
+        MinHeight="510" MinWidth="250"
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="ThreeDBorderWindow" 
+        FontFamily="Segoe UI Emoji">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Height="auto" MinHeight="240">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF6666"/>
+                    <GradientStop Color="#FF9077" Offset="1"/>
+                    <GradientStop Color="#FF7999" Offset="0.546"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle MaxWidth="500" MaxHeight="350" Grid.RowSpan="2" Width="auto" Margin="35,194,35,119.6" RadiusY="10" RadiusX="10" Fill="White" MinHeight="150">
+            <Rectangle.Effect>
+                <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB"/>
+            </Rectangle.Effect>
+        </Rectangle>
+        <Grid Margin="35,200,35,119.6" Height="auto" Grid.RowSpan="2" MaxHeight="350" MaxWidth="500" MinHeight="140">
+            <Label Content="АВТОРИЗАЦИЯ" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Gray" FontSize="17"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox Margin="5,20,5,10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="ЛОГИН" Text="{Binding Login, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="17"/>
+                <PasswordBox Margin="5,0,5,10" VerticalAlignment="Center" Grid.Row="1" materialDesign:HintAssist.Hint="ПАРОЛЬ" x:Name="PasswordBox"
+                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" FontFamily="Champagne &amp; Limousines" FontSize="17"/>
+            </Grid>
+        </Grid>
+        <Button Grid.Row="1" Width="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,65" 
+                Command="{Binding Voiti}" Content="ВОЙТИ" CommandParameter="{Binding ElementName=PasswordBox}">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFFF3777" Offset="1"/>
+                    <GradientStop Color="#00888888"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <TextBlock Text="Магазин электроники" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,48,0,0" Foreground="Black" Cursor="Hand" FontSize="30" FontFamily="Malgun Gothic Semilight" FontWeight="Normal"/>
+    </Grid>
+</Window>

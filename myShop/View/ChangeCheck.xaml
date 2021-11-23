@@ -1,0 +1,85 @@
+﻿<Window x:Class="myShop.ChangeCheck"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:myShop"
+        mc:Ignorable="d"
+        Title="ChangeCheck" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Height="800" Width="800"  WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow"
+        MinHeight="500" MinWidth="500">
+    <Grid>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.8*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="#FF6666" Grid.ColumnSpan="3"/>
+            <TextBlock Text="ПОКУПКА (ЧЕК)" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                       FontSize="22" FontFamily="Champagne &amp; Limousines" Grid.ColumnSpan="3"/>
+
+            <ListBox Grid.Row="1" ItemsSource="{Binding Line_of_checks}" 
+                     SelectedItem="{Binding SelectedLine_of_check}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock FontSize="18" Text="{Binding Path=name_of_product}" />
+                            <TextBlock>
+                                <Run Text="цена: "/>
+                                <Run Text="{Binding Path=cost_for_buyer, StringFormat=0.00}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="кол-во: "/>
+                                <Run Text="{Binding Path=much_of_products}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <WrapPanel Grid.Row="1" Grid.Column="1" Margin="10,100,10,65" Orientation="Vertical" Grid.RowSpan="2">
+                <Label Margin="10" VerticalAlignment="Center" FontSize="20" 
+                   FontFamily="Champagne &amp; Limousines">
+                    <Label.Content>
+                        <TextBlock TextWrapping="Wrap">Название товара:</TextBlock>
+                    </Label.Content>
+                </Label>
+
+                <Label Width="auto" Margin="10" HorizontalAlignment="Left"
+                       Content="{Binding Path=Title}" FontSize="16"/>
+
+                <Label Margin="10" VerticalAlignment="Center" FontSize="20" 
+                   FontFamily="Champagne &amp; Limousines">
+                    <Label.Content>
+                        <TextBlock TextWrapping="Wrap">Выберите новое количество товаров:</TextBlock>
+                    </Label.Content>
+                </Label>
+
+                <TextBox Text="{Binding VvodMax, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label Margin="10" FontSize="16" 
+                   FontFamily="Champagne &amp; Limousines">
+                    <Label.Content>
+                        <TextBlock>
+                            <Run Text="текущее кол-во="/>
+                            <Run Text="{Binding Max}"/>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
+
+                <Button Command="{Binding ChangeLine_of_check, UpdateSourceTrigger=PropertyChanged}" 
+                    Content="Изменить" Width="auto" Margin="10" HorizontalAlignment="Left" Background="#55555555"/>
+            </WrapPanel>
+
+            <WrapPanel Grid.Row="2" VerticalAlignment="Center">
+                <Button Width="auto" Margin="10" Command="{Binding Gotovo}" 
+                    HorizontalAlignment="Left" Content="Готово"/>
+            </WrapPanel>
+        </Grid>
+    </Grid>
+</Window>

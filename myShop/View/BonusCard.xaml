@@ -1,0 +1,66 @@
+﻿<Window x:Class="myShop.BonusCard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:myShop"
+        mc:Ignorable="d"
+        Title="BonusCard" Height="600" Width="400"  WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow"
+        MinHeight="380" MinWidth="250">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+        <Border Background="#FF6666" Grid.ColumnSpan="2"/>
+        <TextBlock Text="КАРТА ЛОЯЛЬНОСТИ" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                       FontSize="22" FontFamily="Champagne &amp; Limousines" Grid.ColumnSpan="2"/>
+
+        <Label Margin="10" Grid.Row="1" VerticalAlignment="Center" FontSize="20" 
+                   FontFamily="Champagne &amp; Limousines">
+            <Label.Content>
+                <TextBlock TextWrapping="Wrap">Применить карту:</TextBlock>
+            </Label.Content>
+        </Label>
+
+        <Label Margin="10" Grid.Row="2" VerticalAlignment="Top" FontSize="20" 
+                   FontFamily="Champagne &amp; Limousines">
+            <Label.Content>
+                <TextBlock TextWrapping="Wrap">Списать:</TextBlock>
+            </Label.Content>
+        </Label>
+
+        <ComboBox Grid.Row="1" Width="auto" Margin="10" HorizontalAlignment="Left" 
+          ItemsSource="{Binding BonusCards}" SelectedItem="{Binding SelectedBonusCard, UpdateSourceTrigger=PropertyChanged}"
+          IsEditable="True" DisplayMemberPath="number_of_card" VerticalAlignment="Center" Grid.Column="1" />
+
+        <WrapPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
+            <TextBox Text="{Binding VvodBonus, UpdateSourceTrigger=PropertyChanged}" Margin="10"/>
+
+            <Label Margin="10"  VerticalAlignment="Center" FontSize="12" 
+                   FontFamily="Champagne &amp; Limousines">
+                <Label.Content>
+                    <TextBlock>
+                            <Run Text="доступно для снятия="/>
+                            <Run Text="{Binding MaxBonus}"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+        </WrapPanel>
+
+        <WrapPanel VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="3" 
+                   Orientation="Vertical" HorizontalAlignment="Center">
+            <Button Width="150" Margin="10" Command="{Binding WithCard}" Content="ПРИМЕНИТЬ" Background="#55555555"/>
+
+            <Button Width="150" Margin="10" Command="{Binding WithoutCard}" Content="НЕ ПРИМЕНЯТЬ" Background="#55555555"/>
+            <Button Width="150" Margin="10" Command="{Binding AddCard}" Content="ПРИОБРЕСТИ" Background="#55555555"/>
+        </WrapPanel>
+    </Grid>
+</Window>

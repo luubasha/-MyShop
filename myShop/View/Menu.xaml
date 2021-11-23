@@ -1,0 +1,168 @@
+﻿<Window x:Class="myShop.Menu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:myShop"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Height="600" Width="740"  WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow" 
+        MinHeight="600" MinWidth="740" Title="Menu">
+    <Window.Resources>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.9*"/>
+        </Grid.RowDefinitions>
+        <Border Background="#FF6666"/>
+        <TextBlock Text="MY SHOP" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                   FontSize="22" FontFamily="Champagne &amp; Limousines" />
+
+        <TabControl Margin="10,9.8,9.6,10" BorderBrush="Gainsboro" Grid.Row="1" >
+            <TabControl.Resources>
+                <Style TargetType="TabItem" x:Key="tabControl">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <Style x:Key="Vis" BasedOn="{StaticResource tabControl}" TargetType="TabItem">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding TabControlVis}" Value="True">
+                            <Setter Property="TabControl.Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TabControl.Resources>
+
+            <TabItem Header="ЧЕК" Style="{StaticResource tabControl}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="96*"/>
+                        <ColumnDefinition Width="121*"/>
+                        <ColumnDefinition Width="498*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.15*"/>
+                        <RowDefinition Height="0.8*"/>
+                    </Grid.RowDefinitions>
+                    <WrapPanel Orientation="Horizontal" Grid.ColumnSpan="3" >
+                        <Button Width="auto" Command="{Binding Add_Check}"
+                                Margin="10" Content="ДОБАВИТЬ" Background="#55555555"/>
+                        <Button Width="auto" Command="{Binding Change_Check}" Visibility="{Binding Vis}"
+                                Margin="10" Content="РЕДАКТИРОВАТЬ" Background="#55555555"/>
+                        <Button Width="auto" Command="{Binding Delete_Check}" Visibility="{Binding Vis}"
+                                Margin="10" Content="УДАЛИТЬ" Background="#55555555"/>
+                        <Button Width="auto" Command="{Binding Print_Check}"
+                                Margin="10" Content="ПОСМОТРЕТЬ" Background="#55555555"/>
+                    </WrapPanel>
+
+                    <ListBox ItemsSource="{Binding Checks}" SelectedItem="{Binding SelectedCheck}" Grid.ColumnSpan="3" Margin="0,75,0,0" Grid.RowSpan="2">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5">
+                                    <TextBlock FontSize="18" Text="{Binding Path=date_and_time}" Language="ru-RU"/>
+                                    <TextBlock>
+                                <Run Text="сумма: "/>
+                                <Run Text="{Binding Path=total_cost, StringFormat=0.00}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="СПИСАТЬ ТОВАР" Style="{StaticResource Vis}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.9*"/>
+                        <RowDefinition Height="0.15*"/>
+                    </Grid.RowDefinitions>
+
+                    <ListBox ItemsSource="{Binding Procrochka_spisok}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5">
+                                    <CheckBox IsChecked="{Binding Path=isSelected, Mode=TwoWay}">
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock FontSize="18" Text="{Binding Path=title}" />
+                                            <TextBlock>
+                                                <Run Text="номер поставки: "/>
+                                                <Run Text="{Binding Path=number_of_postavka_FK}"/>
+                                            </TextBlock>
+                                            <TextBlock>
+                                                <Run Text="кол-во: "/>
+                                                <Run Text="{Binding Path=ostalos_product}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </CheckBox>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Width="auto" HorizontalAlignment="Left" Margin="10" Content="СПИСАТЬ" Grid.Row="1"
+                            Command="{Binding Spicat}"/>
+                        <Button Width="auto" HorizontalAlignment="Left" Margin="10" Content="ВЫБРАТЬ ВСЕ / СНЯТЬ ВЫБОР"
+                                Command="{Binding All_Empty}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="ОТЧЕТ" Style="{StaticResource Vis}">
+                <Grid MinHeight="450" Height="auto">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="0.2*"/>
+                    </Grid.RowDefinitions>
+                    <Label Margin="10" FontSize="18"
+                   FontFamily="Champagne &amp; Limousines">
+                        <Label.Content>
+                            <TextBlock TextWrapping="Wrap">Благодаря данного отчета можно увидеть на графике,
+                            сколько рублей и бонусов потратили покупатели за определенный промежуток времени</TextBlock>
+                        </Label.Content>
+                    </Label>
+
+                    <DatePicker Grid.Row="1"  Language="ru-RU" Margin="10" MaxWidth="600" HorizontalAlignment="Stretch"
+                         Width="auto" MinWidth="100" SelectedDate="{Binding Date1}"
+                         materialDesign:HintAssist.Hint="УКАЖИТЕ НАЧАЛЬНУЮ ДАТУ" 
+                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+
+                    <DatePicker Grid.Row="2" Language="ru-RU" Margin="10" MaxWidth="600" HorizontalAlignment="Stretch"
+                         Width="auto" MinWidth="100" SelectedDate="{Binding Date2}"
+                         materialDesign:HintAssist.Hint="УКАЖИТЕ КОНЕЧНУЮ ДАТУ"
+                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+
+                    <Button Command="{Binding GetOtchet, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3"
+                    Content="Получить" Width="auto" Margin="10" HorizontalAlignment="Stretch" MaxWidth="100"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
